@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>消费基因扫描</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="app-container">
+
+    <!-- 激活页 -->
+    <section id="activation-page" class="page active">
+      <div class="activation-card">
+        <div class="activation-icon">🔐</div>
+        <h1 class="activation-title">消费基因扫描</h1>
+        <p class="activation-subtitle">请输入激活码开始体验</p>
+        <div class="activation-input-group">
+          <input type="text" id="activation-code" class="activation-input" placeholder="请输入激活码" autocomplete="off">
+        </div>
+        <button id="activation-btn" class="btn-primary">立即激活</button>
+        <p id="activation-error" class="error-message hidden">激活码错误，请重试</p>
+        <p class="activation-reset"><a href="#" id="reset-activation">重新激活</a></p>
+      </div>
+    </section>
+
+    <!-- 首页 -->
+    <section id="home-page" class="page hidden">
+      <div class="home-container">
+        <div class="home-tags" id="home-tags">
+          <!-- 动态生成 -->
+        </div>
+        <div class="home-hero">
+          <h1 id="home-title" class="home-title"></h1>
+          <p id="home-subtitle" class="home-subtitle"></p>
+          <p id="home-description" class="home-description"></p>
+        </div>
+        <div class="home-agreements" id="home-agreements">
+          <!-- 动态生成 -->
+        </div>
+        <div class="home-footer">
+          <button id="home-start-btn" class="btn-primary btn-disabled" disabled>开始扫描</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 基本信息页 -->
+    <section id="info-page" class="page hidden">
+      <div class="info-container">
+        <div class="info-header">
+          <h1 id="info-title" class="info-title"></h1>
+          <p id="info-subtitle" class="info-subtitle"></p>
+        </div>
+        <div class="info-sections" id="info-sections">
+          <!-- 动态生成 -->
+        </div>
+        <div class="info-footer">
+          <button id="info-start-btn" class="btn-primary btn-disabled" disabled>开始测评</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 答题页 -->
+    <section id="quiz-page" class="page hidden">
+      <div class="quiz-container">
+        <div class="quiz-progress-container">
+          <div class="quiz-progress-bar" id="quiz-progress-bar"></div>
+        </div>
+        <div class="quiz-content">
+          <div class="quiz-question-card" id="quiz-question-card">
+            <div class="quiz-question-header">
+              <span class="quiz-question-number" id="quiz-question-number">第 1 题</span>
+              <span class="quiz-question-dimension" id="quiz-question-dimension">补偿型消费</span>
+            </div>
+            <p class="quiz-question-text" id="quiz-question-text"></p>
+            <div class="quiz-options" id="quiz-options">
+              <!-- 动态生成 -->
+            </div>
+          </div>
+        </div>
+        <div class="quiz-nav">
+          <button id="quiz-prev-btn" class="quiz-prev-btn hidden">← 返回上一题</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 转场页 -->
+    <section id="loading-page" class="page hidden">
+      <div class="loading-container">
+        <div class="loading-circles">
+          <div class="loading-circle"></div>
+          <div class="loading-circle"></div>
+          <div class="loading-circle"></div>
+        </div>
+        <div class="loading-percent" id="loading-percent">0%</div>
+        <div class="loading-text" id="loading-text">数据扫描中...</div>
+      </div>
+    </section>
+
+    <!-- 结果页 -->
+    <section id="result-page" class="page hidden">
+      <div class="result-container">
+        <!-- 档案页眉 -->
+        <div class="result-header">
+          <div class="result-header-left">
+            <h1 class="result-title">GENE INDEX REPORT</h1>
+          </div>
+          <div class="result-header-right">
+            <p class="result-id" id="result-id">报告编号：#DNA-000000</p>
+            <p class="result-time" id="result-time">2024-01-01 00:00:00</p>
+          </div>
+        </div>
+
+        <!-- 背景水印 -->
+        <div class="result-watermark">PRIVATE & CONFIDENTIAL</div>
+
+        <!-- 核心视觉双子星 -->
+        <div class="result-charts">
+          <!-- DNA双螺旋 -->
+          <div class="result-dna">
+            <canvas id="dna-canvas"></canvas>
+          </div>
+          <!-- 雷达图 -->
+          <div class="result-radar">
+            <canvas id="radar-canvas"></canvas>
+          </div>
+        </div>
+
+        <!-- 四维强度说明 -->
+        <div class="result-intensity">
+          <h3 class="result-section-title">你的四大消费模式强度</h3>
+          <p class="result-intensity-desc">每个维度的得分范围为0–100分，分数越高，说明你越倾向在消费中启用这一种"情绪应对模式"。这些分数没有好坏之分，只是在帮你看清：当压力、情绪和期待出现时，你更习惯走哪几条路。</p>
+          <div class="result-dimensions" id="result-dimensions">
+            <!-- 动态生成 -->
+          </div>
+        </div>
+
+        <!-- 身份勋章区 -->
+        <div class="result-identity">
+          <div class="identity-card" id="identity-card">
+            <h2 class="identity-title" id="identity-title"></h2>
+            <p class="identity-summary" id="identity-summary"></p>
+            <p class="identity-quote" id="identity-quote"></p>
+          </div>
+        </div>
+
+        <!-- 深度剥洋葱区 -->
+        <div class="result-analysis">
+          <h3 class="result-section-title">深度解析</h3>
+          <div class="analysis-cards" id="analysis-cards">
+            <!-- 动态生成 -->
+          </div>
+        </div>
+
+        <!-- 重新测评按钮 -->
+        <div class="result-footer">
+          <button id="result-restart-btn" class="btn-secondary">重新测评</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
